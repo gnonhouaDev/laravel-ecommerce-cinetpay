@@ -34,12 +34,17 @@ return [
     | Supported: "session"
     |
     */
-
+    
     'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        // Ajouter le guard pour les vendeurs
+        'vendeur'=>[
+            'driver'=>'session',
+            'provider'=>'vendeurs'
+        ]
     ],
 
     /*
@@ -64,6 +69,12 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        // Ajouter le provider pour les vendeurs
+        'vendeurs'=>[
+            'driver'=>'eloquent',
+            'model'=>App\Models\Vendeur::class,
+        ],
+
 
         // 'users' => [
         //     'driver' => 'database',
