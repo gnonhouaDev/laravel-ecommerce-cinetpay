@@ -51,7 +51,7 @@ class VendeurAuthController extends Controller
 
         try {
             if(auth('vendeur')->attempt($request->only('email','password'))){
-                return redirect()->route('vendeur.dashboard');
+                return redirect()->route('vendeur.dashboard')->with('success','connexion réussie');
             }else{
                 return redirect()->back()->with('error','email ou mot de passe incorrect');
             }

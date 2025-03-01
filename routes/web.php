@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\{homeController, userAuthController, VendeurAuthController};
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\vendeurs\vendeurDashboard;
 use Illuminate\Support\Facades\Route;
 /*
@@ -54,6 +55,19 @@ Route::middleware('auth')->group(function(){
 //     Route::get('/vendeur/logout',[VendeurAuthController::class,'logout'])->name('vendeur.logout');
 // });
 
-Route::prefix('vendeur/dashboard')->group(function(){
+Route::middleware('vendeurMiddleware')->prefix('vendeur/dashboard')->group(function(){
     Route::get('/',[vendeurDashboard::class,'index'])->name('vendeur.dashboard');
+
+    Route::prefix('produits')->group(function(){
+        Route::get('/',[ArticleController::class,'index'])->name('produits.index');
+        Route::get('/create',[ArticleController::class,'create'])->name('produits.create');
+
+
+        Route::post('/store',[ArticleController::class,'store'])->name('produits.store');
+
+    });
+    
+    Route::get('/logout',[vendeurDashboard::class,'logout'])->name('vendeur.logout');
+
+    route::get('/produits/{id}',[ArticleController::class,'show'])->name('produits.show');
 });
